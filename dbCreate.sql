@@ -12,6 +12,25 @@ CREATE DATABASE tbd_lab_1;
 -- Inicio de la creación de tablas
 BEGIN;
 
+CREATE TABLE IF NOT EXISTS CATEGORIA
+(
+    id_categoria serial NOT NULL PRIMARY KEY,
+    nombre varchar(100)
+);
+--comment on table public.categoria is 'blabla';
+
+CREATE TABLE IF NOT EXISTS PRODUCTO
+(
+    id_producto serial NOT NULL PRIMARY KEY,
+    nombre varchar(255),
+    descripcion text,
+    precio decimal(10,2),
+    stock int,
+    estado varchar(50),
+    id_categoria integer,
+    foreign key (id_categoria) references CATEGORIA(id_categoria)
+);
+
 CREATE TABLE IF NOT EXISTS CLIENTE
 (
     id_cliente serial NOT NULL PRIMARY KEY,
@@ -20,6 +39,27 @@ CREATE TABLE IF NOT EXISTS CLIENTE
     email varchar(100),
     contrasena varchar(100),
     telefono varchar(20)
+);
+
+CREATE TABLE IF NOT EXISTS ORDEN
+(
+    id_orden serial NOT NULL PRIMARY KEY,
+    fecha_orden timestamp,
+    estado varchar(50),
+    id_cliente integer,
+    total decimal(10, 2),
+    FOREIGN KEY(id_cliente) references CLIENTE(id_cliente)
+);
+
+CREATE TABLE IF NOT EXISTS DETALLE_ORDEN
+(
+    id_detalle serial NOT NULL PRIMARY KEY,
+    id_orden integer,
+    id_producto integer,
+    cantidad int,
+    precio_unitario decimal(10,2),
+    FOREIGN KEY(id_orden) references ORDEN(id_orden),
+    FOREIGN KEY(id_producto) references PRODUCTO(id_producto)
 );
 
 END;

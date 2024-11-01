@@ -1,3 +1,18 @@
+insert into CATEGORIA (id_categoria, nombre)
+values (1, 'Accesorios'),
+       (2, 'Teclados & Mouses'),
+       (3, 'Monitores'),
+       (4, 'Computadores Armados'),
+       (5, 'Notebooks');
+
+insert into PRODUCTO (id_producto, nombre, descripcion, precio, stock, estado, id_categoria)
+values (1, 'Mouse Silencioso RGB',
+        'Mouse Silencioso RGB\nMarca: Generic\nModel: SMRGBCD001\nDescripción: Mouse inhalámbrico de botones silenciosos y luces RGB',
+        5000, 12, 'Disponible', 2),
+        (2, 'Teclado DELL',
+        'Teclado inhalámbrico DELL\nMarca: DELL\nModel: KM632\nDescripción: Teclado inhalámbrico DELL distribución Latinoamericana con pad numérico',
+        23000, 5, 'Disponible', 2);
+
 -- Inserción de datos en la tabla CLIENTE sin caracteres especiales
 INSERT INTO CLIENTE (nombre, direccion, email, contrasena, telefono) VALUES
 ('Carlos Mendoza', 'Calle 123, Ciudad A', 'carlos.mendoza@mail.com', 'contrasena123', '555-1234'),
