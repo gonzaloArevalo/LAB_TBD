@@ -1,7 +1,7 @@
-package com.lab1.lab1_grupo8.controllers;
+package com.tbd_grupo_8.lab_1.controllers;
 
-import com.lab1.lab1_grupo8.models.Categoria;
-import com.lab1.lab1_grupo8.services.CategoriaService;
+import com.tbd_grupo_8.lab_1.entities.Categoria;
+import com.tbd_grupo_8.lab_1.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorias")
+@CrossOrigin("*")
 public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;

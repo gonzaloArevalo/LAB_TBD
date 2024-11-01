@@ -1,4 +1,4 @@
-package com.lab1.lab1_grupo8.models;
+package com.tbd_grupo_8.lab_1.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

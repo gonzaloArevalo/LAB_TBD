@@ -1,4 +1,4 @@
-package com.lab1.lab1_grupo8.config;
+package com.tbd_grupo_8.lab_1.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

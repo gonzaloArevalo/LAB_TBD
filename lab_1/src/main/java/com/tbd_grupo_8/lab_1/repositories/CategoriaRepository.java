@@ -1,6 +1,5 @@
-package com.lab1.lab1_grupo8.repositories;
-
-import com.lab1.lab1_grupo8.models.Categoria;
+package com.tbd_grupo_8.lab_1.repositories;
+import com.tbd_grupo_8.lab_1.entities.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
