@@ -1,5 +1,3 @@
-
-
 -- Eliminar la base de datos si ya existe
 DROP DATABASE IF EXISTS tbd_lab_1;
 
