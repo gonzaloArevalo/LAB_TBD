@@ -1,10 +1,7 @@
-<script setup>
+<script>
 
 import clienteService from '../services/cliente.service';
 
-</script>
-
-<script>
 export default{
   name: 'Home',
   data() {
@@ -21,18 +18,30 @@ export default{
     //     console.error('Error al obtener los usuarios:', error); // Manejamos errores
     //   });
   }
-
-
 }
 </script>
 
-
 <template>
-  <v-btn color="primary">¡Hola, Vuetify!xd</v-btn>
+  <v-container class="home-container" fluid>
+  
+    <v-row justify="center">
 
-  <v-btn color="primary">
-    <router-link :to="{ name: 'Login' }">LINK A LOGIN</router-link>
-  </v-btn>
+      <v-col cols="12" md="4">
+
+        <v-btn color="primary" :to="{ name: 'Login' }">
+          LINK A LOGIN
+        </v-btn>
+      
+        <v-btn color="primary" :to="{ name: 'Register' }">
+          LINK A REGISTER
+        </v-btn>
+
+      </v-col>
+
+
+    </v-row>
+
+  </v-container>
 
   <!-- <div v-if="users.length">
     <p v-for="(cliente,index) in users" :key="index">
@@ -42,5 +51,18 @@ export default{
     </p>
   </div> -->
 </template>
+
+<style scoped>
+  .home-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-image: url('../assets/yotsuba.jpg');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+  }
+  
+  </style>
 
 
