@@ -22,34 +22,29 @@ export default{
 </script>
 
 <template>
-  <v-container class="home-container" fluid>
   
-    <v-row justify="center">
-
-      <v-col cols="12" md="4">
-
+  <v-container class="home-container" fluid>
+    <v-row class="bg-surface-variant" justify="center">
+      <v-col cols="4" class="bg-pink text-center">
         <v-btn color="primary" :to="{ name: 'Login' }">
           LINK A LOGIN
         </v-btn>
-      
+      </v-col>
+
+      <v-col cols="4" class="bg-green text-center">
         <v-btn color="primary" :to="{ name: 'Register' }">
           LINK A REGISTER
         </v-btn>
-
       </v-col>
 
+      <v-col cols="4" class="bg-purple text-center">
+        <v-btn color="primary" :to="{ name: 'Products' }">
+          LINK A PRODUCTOS
+        </v-btn>
+      </v-col>
 
     </v-row>
-
   </v-container>
-
-  <!-- <div v-if="users.length">
-    <p v-for="(cliente,index) in users" :key="index">
-
-      NOMBRE: {{ cliente.nombre }} CORREO: {{ cliente.email }}
-
-    </p>
-  </div> -->
 </template>
 
 <style scoped>
@@ -62,7 +57,6 @@ export default{
     background-position: center; 
     background-repeat: no-repeat; 
   }
-  
   </style>
 
 

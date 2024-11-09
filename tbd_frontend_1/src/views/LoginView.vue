@@ -39,7 +39,6 @@
     </v-row>
   </v-container>
 </template>
-  
 
 <script>
 export default {
@@ -52,8 +51,6 @@ export default {
       show1: false,
       rules: {
           required: value => !!value || 'Requerido.',
-          passwordMatch: value => value === this.password || 'La contraseña no coincide con la anterior.',
-          sameEmail: () => !this.sameEmail || 'Este correo ya está registrado.'
         }
     };
   },
@@ -91,7 +88,6 @@ export default {
 .v-card-sub {
   display: inline;
 }
-
 
 </style>
   
