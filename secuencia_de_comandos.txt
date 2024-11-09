@@ -3,4 +3,5 @@
 
 - psql -U postgres -f dbCreate.sql
 - psql -U postgres -d tbd_lab_1 -f loadData.sql
+- psql -U postgres -d tbd_lab_1 -f triggerCreate.sql
 
