@@ -15,4 +15,12 @@ public class ClienteService {
     public List<Cliente> getAll() {
         return clienteRepository.getAllClientes();
     }
+
+    public Cliente getById(Long id) {
+        return clienteRepository.findByID(id);
+    }
+
+    public void saveCliente(Cliente cliente) {
+        clienteRepository.createCliente(cliente);
+    }
 }

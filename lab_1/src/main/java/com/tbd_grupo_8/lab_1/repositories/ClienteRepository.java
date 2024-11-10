@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ClienteRepository {
     public List<Cliente> getAllClientes();
-    public String createCliente(Cliente cliente);
+    public void createCliente(Cliente cliente);
     public Cliente findByUsername(String username);
+    public Cliente findByID(Long id);
     public String login(String username,String password);
+    public Cliente findByEmail(String email);
 }

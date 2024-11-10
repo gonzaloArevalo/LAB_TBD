@@ -25,17 +25,61 @@ public class ClienteRepositoryImp implements ClienteRepository {
     }
 
     @Override
-    public String createCliente(Cliente cliente) {
-        return null;
+    public void createCliente(Cliente cliente) {
+        String sql = "INSERT INTO \"cliente\" (username, direccion, email, contrasena, telefono, rol) VALUES (:username, :direccion, :email, :contrasena, :telefono, :rol)";
+        try (org.sql2o.Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("username", cliente.getUsername())
+                    .addParameter("direccion", cliente.getDireccion())
+                    .addParameter("email", cliente.getEmail())
+                    .addParameter("contrasena", cliente.getContrasena())
+                    .addParameter("telefono", cliente.getTelefono())
+                    .addParameter("rol", cliente.getRol())
+                    .executeUpdate();
+        }
     }
 
     @Override
     public Cliente findByUsername(String username) {
-        return null;
+        try(Connection connection = sql2o.open()){
+            return connection
+                    .createQuery("SELECT * FROM \"cliente\" WHERE username =:username")
+                    .addParameter("username", username)
+                    .executeAndFetch(Cliente.class).get(0);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Cliente findByEmail(String email) {
+        try(Connection connection = sql2o.open()){
+            return connection
+                    .createQuery("SELECT * FROM \"cliente\" WHERE email =:email")
+                    .addParameter("email", email)
+                    .executeAndFetch(Cliente.class).get(0);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public String login(String username, String password) {
         return null;
+    }
+
+    @Override
+    public Cliente findByID(Long id) {
+        try(Connection connection = sql2o.open()){
+            return connection
+                    .createQuery("SELECT * FROM \"cliente\" WHERE id_cliente =:id")
+                    .addParameter("id_cliente", id)
+                    .executeAndFetch(Cliente.class).get(0);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

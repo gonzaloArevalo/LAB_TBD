@@ -32,11 +32,12 @@ CREATE TABLE IF NOT EXISTS PRODUCTO
 CREATE TABLE IF NOT EXISTS CLIENTE
 (
     id_cliente serial NOT NULL PRIMARY KEY,
-    nombre varchar(255),
+    username varchar(255),
     direccion varchar(255),
     email varchar(100),
     contrasena varchar(100),
-    telefono varchar(20)
+    telefono varchar(20),
+    rol varchar(20)
 );
 
 CREATE TABLE IF NOT EXISTS ORDEN
