@@ -15,7 +15,7 @@ public class OrdenService {
     public List<Orden> findAll() {
         return ordenRepository.findAll();
     }
-    public Orden findById(int id) {
+    public Orden findById(long id) {
         return ordenRepository.findById(id);
     }
     public Orden save(Orden orden) {

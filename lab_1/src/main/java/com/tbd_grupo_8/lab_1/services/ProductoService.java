@@ -15,7 +15,7 @@ public class ProductoService {
     public List<Producto> findAll() {
         return productoRepository.findAll();
     }
-    public Producto findById(int id) {
+    public Producto findById(long id) {
         return productoRepository.findById(id);
     }
     public Producto save(Producto producto) {
