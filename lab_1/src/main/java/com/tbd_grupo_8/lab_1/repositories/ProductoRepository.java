@@ -16,13 +16,15 @@ public class ProductoRepository {
 
     public List<Producto> findAll() {
         try (Connection conn = sql2o.open()) {
-            return conn.createQuery("SELECT id_producto, id_producto, nombre, descripcion, precio, stock, estado, id_categoria FROM producto")
+            return conn.createQuery("SELECT id_producto, id_producto, nombre, descripcion, precio, stock," +
+                            " estado, id_categoria FROM producto")
                     .executeAndFetch(Producto.class);
         }
     }
     public Producto findById(long id) {
         try (Connection conn = sql2o.open()) {
-            return conn.createQuery("SELECT id_producto, nombre, descripcion, precio, stock, estado, id_categoria FROM producto WHERE id_producto = :id")
+            return conn.createQuery("SELECT id_producto, nombre, descripcion, precio, stock, estado, " +
+                            "id_categoria FROM producto WHERE id_producto = :id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Producto.class);
         }
@@ -60,12 +62,16 @@ public class ProductoRepository {
             return producto;
         }
     }
-    public void delete(long id) {
+    public boolean delete(long id) {
         try (Connection conn = sql2o.open()) {
             String sql = "DELETE FROM producto WHERE id_producto = :id";
             conn.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
+            return true;
+        }
+        catch (Exception e) {
+            return false;
         }
     }
 
