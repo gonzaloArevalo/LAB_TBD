@@ -10,18 +10,20 @@ export default{
     }
   },
   mounted() {
-    // clienteService.getAll()
-    //   .then(response => {
-    //     this.users = response.data; // Asignamos los datos de la respuesta
-    //   })
-    //   .catch(error => {
-    //     console.error('Error al obtener los usuarios:', error); // Manejamos errores
-    //   });
+    clienteService.getAll()
+      .then(response => {
+        this.users = response.data; // Asignamos los datos de la respuesta
+      })
+      .catch(error => {
+        console.error('Error al obtener los usuarios:', error); // Manejamos errores
+      });
   }
 }
 </script>
 
 <template>
+
+  {{ users }}
   
   <v-container class="home-container" fluid>
     <v-row class="bg-surface-variant" justify="center">

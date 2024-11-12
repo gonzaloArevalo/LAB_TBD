@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/detalle_orden")
-@CrossOrigin("*")
 public class DetalleOrdenController {
     @Autowired
     private DetalleOrdenRepository detalleOrdenRepository;

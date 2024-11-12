@@ -5,7 +5,6 @@ export default {
   name: 'App',
   data() {
     return {
-      users: []
     }
   },
   components: {},

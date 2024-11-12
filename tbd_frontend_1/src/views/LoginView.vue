@@ -11,16 +11,16 @@
           <v-card-text>
             <v-form @submit.prevent="handleSubmit">
               <v-text-field
-                v-model="email"
-                label="Correo"
-                placeholder="tu@ejemplo.com"
-                prepend-inner-icon="mdi-email"
+                v-model="usernamex"
+                label="Nombre de usuario"
+                placeholder="juanitoProGamer2012"
+                prepend-inner-icon="mdi-account"
                 outlined
                 dense
                 :rules="[rules.required]"
               ></v-text-field>
               <v-text-field
-                v-model="password"
+                v-model="passwordx"
                 :rules="[rules.required]"
                 label="Contraseña"
                 placeholder="Ingresa tu contraseña"
@@ -41,14 +41,18 @@
 </template>
 
 <script>
+
+import authService from '../services/auth.service';
+
 export default {
   name: "Login",
   components: {},
   data() {
     return {
-      email: '',
-      password: '',
+      usernamex: '',
+      passwordx: '',
       show1: false,
+      data: [],
       rules: {
           required: value => !!value || 'Requerido.',
         }
@@ -56,11 +60,27 @@ export default {
   },
   methods: {
     handleSubmit() {
+      const username = this.usernamex;
+      const password = this.passwordx;
+      const loginDto = {username, password};
+      // Se intenta login
+      authService.
+      login(loginDto)
+      .then((response) => {
+        console.log("Se logeo", response.data);
+        this.data = response;
+      })
+      .catch((error) => {
+        console.log("ERROR AL LOGUEARSE",error);
+      });
+
       // SI NO ESTA LA PASS Y EL EMAIL NO SE HACE LOGEA
 
       // SE NECESITA FUNCION DE BACKEND PARA ENVIAR LAS CREDENCIALES
-      console.log(this.email);
-      console.log(this.password);
+      console.log(this.usernamex);
+      console.log(this.passwordx);
+      console.log(this.data);
+      // this.$router.push({ name: 'Home' });
     }
   },
 };

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
@@ -42,7 +41,7 @@ public class AuthController {
             // Si la autenticación fue exitosa, crear un JWT y devolverlo en el header
             String jwt = this.jwtUtil.create(loginDto.getUsername());
 
-            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
+            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,jwt).build();
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -60,5 +59,4 @@ public class AuthController {
         clienteService.saveCliente(newCliente);
         return ResponseEntity.ok().build();
     }
-
 }

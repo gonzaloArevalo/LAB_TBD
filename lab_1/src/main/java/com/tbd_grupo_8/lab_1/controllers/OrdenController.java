@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/orden")
-@CrossOrigin("*")
 public class OrdenController {
     @Autowired
     private OrdenService ordenService;
