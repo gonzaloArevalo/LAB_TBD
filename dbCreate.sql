@@ -61,4 +61,15 @@ CREATE TABLE IF NOT EXISTS DETALLE_ORDEN
     FOREIGN KEY(id_producto) references PRODUCTO(id_producto)
 );
 
+-- Se crea una tabla para llevar registro de las llamadas de insercion, actualizacion o eliminacion realizadas en el backend
+
+CREATE TABLE audit_log (
+    id_log serial PRIMARY KEY,
+    tabla VARCHAR(50),
+    operacion VARCHAR(10),
+    datos JSONB,
+    usuario VARCHAR(255),
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 END;
