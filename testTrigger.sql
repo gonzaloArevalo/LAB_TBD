@@ -9,3 +9,8 @@ UPDATE PRODUCTO SET stock = 5 WHERE id_producto = 1;
 
 -- Verificar que volvió a 'Disponible'
 SELECT id_producto, nombre, stock, estado FROM PRODUCTO WHERE id_producto = 1;
+
+-- Actualizar el precio de un producto
+UPDATE PRODUCTO SET precio = 5000 WHERE id_producto = 1;
+--Se llama el procedimiento almacenado
+CALL reporte_audit();
