@@ -8,7 +8,7 @@ const getAll = () => {
   const headers = token ? { Authorization: token } : {};
 
   // Enviar la solicitud con el header
-  return httpClient.get('/api/cliente/', { headers });
+  return httpClient.get('/api/producto/', { headers });
 };
 
 export default { getAll };

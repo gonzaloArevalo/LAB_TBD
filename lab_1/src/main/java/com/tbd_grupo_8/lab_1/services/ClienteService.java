@@ -20,6 +20,14 @@ public class ClienteService {
         return clienteRepository.findByID(id);
     }
 
+    public Cliente getByUsername(String username) {
+        return clienteRepository.findByUsername(username);
+    }
+
+    public Cliente getByEmail(String email) {
+        return clienteRepository.findByEmail(email);
+    }
+
     public void saveCliente(Cliente cliente) {
         clienteRepository.createCliente(cliente);
     }

@@ -48,15 +48,20 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterDto registerDto) {
-        Cliente newCliente = new Cliente();
-        newCliente.setUsername(registerDto.getUsername());
-        newCliente.setContrasena(passwordEncoder.encode(registerDto.getPassword())); // Encriptar la contraseña
-        newCliente.setRol(registerDto.getRol());
-        newCliente.setEmail(registerDto.getEmail());
-        newCliente.setTelefono(registerDto.getTelefono());
-        newCliente.setDireccion(registerDto.getDireccion());
-        clienteService.saveCliente(newCliente);
-        return ResponseEntity.ok().build();
+    public Object register(@RequestBody RegisterDto registerDto) {
+        if (clienteService.getByUsername(registerDto.getUsername()) != null || clienteService.getByEmail(registerDto.getEmail()) != null) {
+            // Devolver un error con estado 409 (CONFLICT) si el usuario ya existe
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Ya existe un usuario con ese nombre o correo");
+        } else {
+            Cliente newCliente = new Cliente();
+            newCliente.setUsername(registerDto.getUsername());
+            newCliente.setContrasena(passwordEncoder.encode(registerDto.getPassword())); // Encriptar la contraseña
+            newCliente.setRol(registerDto.getRol());
+            newCliente.setEmail(registerDto.getEmail());
+            newCliente.setTelefono(registerDto.getTelefono());
+            newCliente.setDireccion(registerDto.getDireccion());
+            clienteService.saveCliente(newCliente);
+            return ResponseEntity.ok().build();
+        }
     }
 }

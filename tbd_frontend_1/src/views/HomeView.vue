@@ -10,20 +10,18 @@ export default{
     }
   },
   mounted() {
-    clienteService.getAll()
-      .then(response => {
-        this.users = response.data; // Asignamos los datos de la respuesta
-      })
-      .catch(error => {
-        console.error('Error al obtener los usuarios:', error); // Manejamos errores
-      });
+    // clienteService.getAll()
+    //   .then(response => {
+    //     this.users = response.data; // Asignamos los datos de la respuesta
+    //   })
+    //   .catch(error => {
+    //     console.error('Error al obtener los usuarios:', error); // Manejamos errores
+    //   });
   }
 }
 </script>
 
 <template>
-
-  {{ users }}
   
   <v-container class="home-container" fluid>
     <v-row class="bg-surface-variant" justify="center">
@@ -54,10 +52,10 @@ export default{
     height: 100vh;
     display: flex;
     align-items: center;
-    background-image: url('../assets/yotsuba.jpg');
+    /* background-image: url('../assets/yotsuba.jpg');
     background-size: cover;
     background-position: center; 
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;  */
   }
   </style>
 
