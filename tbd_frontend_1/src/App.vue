@@ -1,13 +1,17 @@
 
 
 <script>
+import Navbar from './components/Navbar.vue';
+import Sidemenu from './components/Sidemenu.vue';
 export default {
   name: 'App',
   data() {
     return {
     }
   },
-  components: {},
+  components: {
+    Navbar,
+  },
   methods: {
   },
 
@@ -18,6 +22,7 @@ export default {
 <template>
 
   <v-app>
+    <Navbar />
 
     <v-content>
 
