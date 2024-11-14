@@ -7,9 +7,7 @@
   
       <v-btn text to="/" :exact="true">Inicio</v-btn>
       <v-btn text to="/products">Productos</v-btn>
-      <v-btn text to="/cart">Carro</v-btn>
-
-
+      
       <!-- <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn text v-bind="attrs" v-on="on">
