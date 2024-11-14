@@ -10,7 +10,7 @@ values (1, 'Accesorios'),
 insert into PRODUCTO (id_producto, nombre, descripcion, precio, stock, estado, id_categoria)
 values (1, 'Mouse Silencioso RGB',
         'Mouse Silencioso RGB\nMarca: Generic\nModel: SMRGBCD001\nDescripción: Mouse inhalámbrico de botones silenciosos y luces RGB',
-        5000, 12, 'Disponible', 2),
+        4500, 12, 'Disponible', 2),
         (2, 'Teclado DELL',
         'Teclado inhalámbrico DELL\nMarca: DELL\nModel: KM632\nDescripción: Teclado inhalámbrico DELL distribución Latinoamericana con pad numérico',
         23000, 5, 'Disponible', 2);

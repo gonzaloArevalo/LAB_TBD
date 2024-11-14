@@ -8,7 +8,13 @@
             <span>¿No tienes una cuenta?</span>
           </v-card-subtitle>
           <v-btn color="primary" class="ml-1" :to="{ name: 'Register' }">Registrarse</v-btn>
+          
           <v-card-text>
+            <!-- Mostrar mensaje de error solo si errorMessage tiene un valor -->
+            <v-alert v-if="errorMessage" type="error" class="mb-4" dismissible>
+              {{ errorMessage }}
+            </v-alert>
+            
             <v-form @submit.prevent="handleSubmit">
               <v-text-field
                 v-model="usernamex"
@@ -41,60 +47,53 @@
 </template>
 
 <script>
-
 import authService from '../services/auth.service';
 
 export default {
   name: "Login",
-  components: {},
   data() {
     return {
       usernamex: '',
       passwordx: '',
       show1: false,
-      data: [],
+      errorMessage: '', // Agregar propiedad para el mensaje de error
       rules: {
-          required: value => !!value || 'Requerido.',
-        }
+        required: value => !!value || 'Requerido.',
+      }
     };
   },
   methods: {
     handleSubmit() {
       const username = this.usernamex;
       const password = this.passwordx;
-      const loginDto = {username, password};
+      const loginDto = { username, password };
+
       // Se intenta login
-      authService.
-      login(loginDto)
-      .then((response) => {
-        console.log("Se logeo", response.data);
-        this.data = response;
-      })
-      .catch((error) => {
-        console.log("ERROR AL LOGUEARSE",error);
-      });
-
-      // SI NO ESTA LA PASS Y EL EMAIL NO SE HACE LOGEA
-
-      // SE NECESITA FUNCION DE BACKEND PARA ENVIAR LAS CREDENCIALES
-      console.log(this.usernamex);
-      console.log(this.passwordx);
-      console.log(this.data);
-      // this.$router.push({ name: 'Home' });
+      authService
+        .login(loginDto)
+        .then((response) => {
+          console.log("Se logeo", response.data);
+          this.errorMessage = ''; // Limpia el mensaje de error si el login es exitoso
+          this.$router.push({ name: 'Home' }); // Redirigir a Home después de un login exitoso
+        })
+        .catch(() => {
+          // Mostrar mensaje de error en pantalla
+          this.errorMessage = 'Usuario o contraseña incorrectos';
+        });
     }
   },
 };
 </script>
-  
+
 <style scoped>
 .login-container {
   height: 100vh;
   display: flex;
   align-items: center;
-  background-image: url('../assets/yotsuba.jpg');
-  background-size: cover; /* Cubre toda la pantalla */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita que se repita la imagen */
+  /* background-image: url('../assets/yotsuba.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
 }
 
 .v-card {
@@ -108,6 +107,6 @@ export default {
 .v-card-sub {
   display: inline;
 }
-
 </style>
+
   
