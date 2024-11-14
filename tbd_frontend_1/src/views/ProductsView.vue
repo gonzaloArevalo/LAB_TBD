@@ -20,6 +20,11 @@ export default {
         console.error("Error al obtener los productos:", error);
       });
   },
+  methods: {
+    goToDetailsProduct(id) {
+      this.$router.push({ path: `/detailsproduct`, query: { id } });
+    },
+  },
 };
 
 </script>
@@ -37,7 +42,9 @@ export default {
             <v-card-subtitle class="text-center mb-3">
               Stock: {{producto.stock}}
             </v-card-subtitle>
-            <v-btn class="mb-2" color="primary" outlined>Detalles</v-btn>
+            <v-btn class="mb-2" color="primary" outlined @click="goToDetailsProduct(producto.id_producto)">
+              Detalles
+            </v-btn>
             <v-btn class="mb-2" color="primary" @click="">Agregar al carrito</v-btn>
           </v-card>
         </v-col>
