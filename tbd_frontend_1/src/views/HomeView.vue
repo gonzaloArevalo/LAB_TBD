@@ -63,8 +63,8 @@ export default{
     background-image: url('../assets/fondoapp_2.jpg');
     background-size: cover;
     background-position: center; 
-    background-repeat: no-repeat;  */
+    background-repeat: no-repeat;
   }
-  </style>
+</style>
 
 
