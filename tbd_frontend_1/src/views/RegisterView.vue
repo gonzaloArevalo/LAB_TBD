@@ -146,10 +146,10 @@ export default {
   height: 100vh;
   display: flex;
   align-items: center;
-  background-image: url("../assets/yotsuba.jpg");
-  background-size: cover; /* Cubre toda la pantalla */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita que se repita la imagen */
+  /* background-image: url("../assets/yotsuba.jpg");
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;  */
 }
 
 .v-card {

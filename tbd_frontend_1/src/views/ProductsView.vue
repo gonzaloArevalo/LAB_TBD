@@ -9,11 +9,7 @@ export default {
       productos: [],
     };
   },
-  setup() {
-    // Inyectar la función para agregar al carrito
-    const agregarAlCarrito = inject("agregarAlCarrito");
-    return { agregarAlCarrito };
-  },
+  
   mounted() {
     productoService
       .getAll()
@@ -42,7 +38,7 @@ export default {
               Stock: {{producto.stock}}
             </v-card-subtitle>
             <v-btn class="mb-2" color="primary" outlined>Detalles</v-btn>
-            <v-btn class="mb-2" color="primary" @click="agregarAlCarrito(producto)">Agregar al carrito</v-btn>
+            <v-btn class="mb-2" color="primary" @click="">Agregar al carrito</v-btn>
           </v-card>
         </v-col>
       </v-row>
