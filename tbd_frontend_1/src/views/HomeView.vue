@@ -1,15 +1,20 @@
 <script>
 
+import { jwtDecode } from 'jwt-decode';
 import clienteService from '../services/cliente.service';
 
 export default{
+  inject: ["logout"],
   name: 'Home',
   data() {
     return{
       users: []
     }
   },
+  methods: {
+  },
   mounted() {
+
     // clienteService.getAll()
     //   .then(response => {
     //     this.users = response.data; // Asignamos los datos de la respuesta
@@ -33,12 +38,12 @@ export default{
 
         <v-card-text>
           <!-- Botón de Login -->
-          <v-btn color="primary" class="ma-2" :to="{ name: 'Login' }" block>
+          <v-btn @click="logout" color="primary" class="ma-2" :to="{ name: 'Login' }" block>
             LOGIN
           </v-btn>
 
           <!-- Botón de Register -->
-          <v-btn color="secondary" class="ma-2" :to="{ name: 'Register' }" block>
+          <v-btn @click="logout" color="secondary" class="ma-2" :to="{ name: 'Register' }" block>
             REGISTER
           </v-btn>
         </v-card-text>

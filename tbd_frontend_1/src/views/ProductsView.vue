@@ -1,9 +1,50 @@
-<script>
+<template>
+  <div class="mx-6 mt-5">
+    <h1 class="mb-5 ml-5">Productos</h1>
+    
+    <v-container fluid>
+      <v-row>
+        <v-col v-for="producto in productos" :key="producto.id_producto" cols="12" sm="6" md="4" lg="3">
+          
+          <v-card class="product-card pt-10">
 
+            <v-img src="../assets/product.png" class="product-image mb-3"></v-img>
+
+            <v-card-title class="text-h5 text-center">
+              {{ producto.nombre }}
+            </v-card-title>
+
+            <v-card-subtitle class="text-h5 text-center">
+              ${{ producto.precio }}
+            </v-card-subtitle>
+
+            <v-card-subtitle class="text-center mb-3">
+              Stock: {{ producto.stock }}
+            </v-card-subtitle>
+
+            <v-btn class="mb-2" color="primary" outlined @click="goToDetailsProduct(producto.id_producto)">
+              Detalles
+            </v-btn>
+
+            <v-btn class="mb-2" color="primary" @click="agregarAlCarrito(producto)">
+              Agregar al carrito
+            </v-btn>
+            
+          </v-card>
+
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</template>
+
+<script>
 import { inject } from "vue";
 import productoService from "@/services/producto.service";
 
 export default {
+  inject: ["agregarAlCarrito"],
+  
   data() {
     return {
       productos: [],
@@ -20,38 +61,14 @@ export default {
         console.error("Error al obtener los productos:", error);
       });
   },
+
   methods: {
     goToDetailsProduct(id) {
       this.$router.push({ path: `/detailsproduct`, query: { id } });
     },
   },
 };
-
 </script>
-
-<template>
-  <div class="mx-6 mt-5">
-    <h1 class="mb-5 ml-5">Productos</h1>
-    
-    <v-container fluid>
-      <v-row>
-        <v-col v-for="producto in productos" :key="producto.id_producto" cols="12" sm="6" md="4" lg="3">
-          <v-card class="product-card pt-10">
-            <v-img src="../assets/product.png" class="product-image mb-3"></v-img>
-            <v-card-title class="text-h5 text-center">{{producto.nombre}}</v-card-title>
-            <v-card-subtitle class="text-center mb-3">
-              Stock: {{producto.stock}}
-            </v-card-subtitle>
-            <v-btn class="mb-2" color="primary" outlined @click="goToDetailsProduct(producto.id_producto)">
-              Detalles
-            </v-btn>
-            <v-btn class="mb-2" color="primary" @click="">Agregar al carrito</v-btn>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
-</template>
 
 <style scoped>
 .product-card {
@@ -81,4 +98,5 @@ h1 {
 .text-center {
   text-align: center;
 }
+
 </style>
