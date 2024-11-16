@@ -11,7 +11,25 @@ const getAll = () => {
   return httpClient.get('/api/producto/', { headers });
 };
 
-export default { getAll };
+const getById = (id) => {
+  //const token = localStorage.getItem("token");
+  //const headers = token ? { Authorization: token } : {};
+  return httpClient.get(`/api/producto/${id}`, { headers });
+};
+
+const update = (id, producto) => {
+  //const token = localStorage.getItem("token");
+  //const headers = token ? { Authorization: token } : {};
+  return httpClient.put(`/api/producto/${id}`, producto, { headers });
+};
+
+const remove = (id) => {
+  //const token = localStorage.getItem("token");
+  //const headers = token ? { Authorization: token } : {};
+  return httpClient.delete(`/api/producto/${id}`, { headers });
+};
+
+export default { getAll, getById, update, remove };
 
 
 
