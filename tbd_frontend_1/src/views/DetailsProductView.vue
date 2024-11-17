@@ -30,44 +30,30 @@
   import productoService from "@/services/producto.service";
   export default {
   name: "DetailsProduct",
+  props: ['id'],
   data() {
     return {
-      //producto: {}, // Aquí se guardará la información del producto
-      producto: null,
+      producto: []
     };
   },
 
-  async created() {
-    const id = this.$route.query.id;
-
-    if (id) {
-      try {
-        const response = await productoService.getById(id);
+  mounted() {
+    console.log("ESTA ES LA ID",this.id);
+    productoService.getById(this.id)
+      .then(response => {
         this.producto = response.data;
-      } catch (error) {
-        console.error("Error al obtener el producto:", error);
-        this.producto = null;
-      }
-    } else {
-      console.error("ID del producto no proporcionado.");
-      this.producto = null;
-    }
+      })
+      .catch(error => {
+        console.error('Error al obtener el producto:', error); // Manejamos errores
+      })
   },
 
-  /* created() {
-    // Obtener el ID del producto desde el query
-    const id = this.$route.query.id;
-
-    // Simular una solicitud para obtener los datos del producto
-    // En un proyecto real, realizarías una llamada a la API aquí
-    this.fetchProduct(id);
-  }, */
-
+  
   methods: {
     goToEditProduct(id) {
       this.$router.push({ path: "/editproduct", query: { id } });
     },
-
+    
     async deleteProduct() {
       if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
         try {
@@ -80,6 +66,31 @@
         }
       }
     },
+    // async created() {
+    //   const id = this.$route.query.id;
+  
+    //   if (id) {
+    //     try {
+    //       const response = await productoService.getById(id);
+    //       this.producto = response.data;
+    //     } catch (error) {
+    //       console.error("Error al obtener el producto:", error);
+    //       this.producto = null;
+    //     }
+    //   } else {
+    //     console.error("ID del producto no proporcionado.");
+    //     this.producto = null;
+    //   }
+    // },
+  
+    /* created() {
+      // Obtener el ID del producto desde el query
+      const id = this.$route.query.id;
+  
+      // Simular una solicitud para obtener los datos del producto
+      // En un proyecto real, realizarías una llamada a la API aquí
+      this.fetchProduct(id);
+    }, */
 
     /* fetchProduct(id) {
       // Simulación de datos del producto

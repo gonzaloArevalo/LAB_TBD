@@ -40,17 +40,21 @@ const routes = [
   {
     path: '/client',
     name: 'Client',
-    component: ClientView
+    component: ClientView,
+    meta: { requiresAuth: true } 
   },
   {
     path: '/editproduct',
     name: 'EditProduct',
-    component: EditProductView
+    component: EditProductView,
+    meta: { requiresAuth: true } 
   },
   {
-    path: '/detailsproduct',
+    path: '/detailsproduct/:id',
     name: 'DetailsProduct',
-    component: DetailsProductView
+    component: DetailsProductView,
+    props: true,
+    meta: { requiresAuth: true } 
   }
 
 ]

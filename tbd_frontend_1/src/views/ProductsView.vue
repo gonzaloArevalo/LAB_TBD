@@ -1,12 +1,11 @@
 <template>
-  <div class="mx-6 mt-5">
-    <h1 class="mb-5 ml-5">Productos</h1>
-    
+  <div class="mx-6 mt-15">
+    <h1 class="mb-5 ml-5 pt-6">Productos</h1>
     <v-container fluid>
       <v-row>
         <v-col v-for="producto in productos" :key="producto.id_producto" cols="12" sm="6" md="4" lg="3">
           
-          <v-card class="product-card pt-10">
+          <v-card color="blue-grey-lighten-2" class="product-card pt-10">
 
             <v-img src="../assets/product.png" class="product-image mb-3"></v-img>
 
@@ -22,7 +21,7 @@
               Stock: {{ producto.stock }}
             </v-card-subtitle>
 
-            <v-btn class="mb-2" color="primary" outlined @click="goToDetailsProduct(producto.id_producto)">
+            <v-btn class="mb-2" color="primary" outlined :to="{name: 'DetailsProduct', params: {id: producto.id_producto}}">
               Detalles
             </v-btn>
 

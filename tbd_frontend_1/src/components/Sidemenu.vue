@@ -23,7 +23,7 @@
         menuItems: [
           { text: "Inicio", icon: "mdi-home", route: "/" },
           { text: "Productos", icon: "mdi-package-variant", route: "/products" },
-          { text: "Categorias", icon: "mdi-checkbox-multiple-blank", route: "/categories"},
+          { text: "Categorias", icon: "mdi-checkbox-multiple-blank", route: ""},
           { text: "Perfil", icon: "mdi-account", route: "/client" },
           // Agrega más opciones de menú según tus necesidades
         ],

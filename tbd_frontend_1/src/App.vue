@@ -1,6 +1,6 @@
 <script>
-import Navbar from './components/Navbar.vue';
-import Sidemenu from './components/Sidemenu.vue';
+import Navbar from "./components/Navbar.vue";
+import Sidemenu from "./components/Sidemenu.vue";
 
 export default {
   name: "App",
@@ -12,25 +12,27 @@ export default {
       menuDrawer: false,
       cartDrawer: false,
       mostrarNavbar: true,
-      carrito: [] // Arreglo de arreglos [[producto, cantidad], ...]
+      carrito: [], // Arreglo de arreglos [[producto, cantidad], ...]
     };
   },
   watch: {
     $route(to) {
       this.mostrarNavbar = !["Login", "Register"].includes(to.name);
-    }
+      // Cerrar el drawer del carrito al cambiar de vista
+      this.cartDrawer = false;
+    },
   },
 
   mounted() {
     this.mostrarNavbar = !["Login", "Register"].includes(this.$route.name);
 
     // Cargar el carrito desde localStorage al iniciar
-    const savedCarrito = JSON.parse(localStorage.getItem('carrito'));
+    const savedCarrito = JSON.parse(localStorage.getItem("carrito"));
     if (savedCarrito) {
       this.carrito = savedCarrito;
     }
   },
- 
+
   methods: {
     toggleMenuDrawer() {
       this.menuDrawer = !this.menuDrawer;
@@ -46,7 +48,9 @@ export default {
       localStorage.removeItem("carrito");
     },
     agregarAlCarrito(producto) {
-      const index = this.carrito.findIndex(([p]) => p.id_producto === producto.id_producto);
+      const index = this.carrito.findIndex(
+        ([p]) => p.id_producto === producto.id_producto
+      );
 
       if (index !== -1) {
         // Producto ya existe en el carrito
@@ -54,7 +58,9 @@ export default {
         if (cantidad < producto.stock) {
           this.carrito[index][1]++; // Incrementar cantidad
         } else {
-          alert('No se puede agregar más, se ha alcanzado el stock disponible.');
+          alert(
+            "No se puede agregar más, se ha alcanzado el stock disponible."
+          );
         }
       } else {
         // Producto no existe en el carrito
@@ -64,10 +70,15 @@ export default {
       console.log(this.carrito);
 
       // Guardar el carrito actualizado en localStorage
-      localStorage.setItem('carrito', JSON.stringify(this.carrito));
+      localStorage.setItem("carrito", JSON.stringify(this.carrito));
+
+      // Abrir el drawer
+      this.cartDrawer = true;
     },
     eliminarDelCarrito(productoID) {
-      const index = this.carrito.findIndex(([p]) => p.id_producto === productoID);
+      const index = this.carrito.findIndex(
+        ([p]) => p.id_producto === productoID
+      );
 
       if (index !== -1) {
         const [, cantidad] = this.carrito[index];
@@ -79,7 +90,16 @@ export default {
       }
 
       // Guardar el carrito actualizado en localStorage
-      localStorage.setItem('carrito', JSON.stringify(this.carrito));
+      localStorage.setItem("carrito", JSON.stringify(this.carrito));
+    },
+    calcularSubtotal() {
+      return this.carrito.reduce(
+        (total, [producto, cantidad]) => total + producto.precio * cantidad,
+        0
+      );
+    },
+    irAPagar() {
+      // this.$router.push({ name: "Checkout" }); // Redirigir a la vista de pago
     },
   },
   provide() {
@@ -88,26 +108,35 @@ export default {
       eliminarDelCarrito: this.eliminarDelCarrito,
       logout: this.logout,
     };
-  }
+  },
 };
 </script>
 
 <template>
   <v-app>
-    <Navbar />
-    <v-app-bar v-if="mostrarNavbar" app>
+    <v-app-bar color="blue-grey-lighten-2" v-if="mostrarNavbar" app>
+      <!-- Ícono del menú lateral -->
       <v-app-bar-nav-icon @click="toggleMenuDrawer" />
-      <v-toolbar-title>Mi Tienda</v-toolbar-title>
-      <v-spacer></v-spacer>
 
+      <!-- Título de la tienda -->
+      <v-toolbar-title>Mi Tienda</v-toolbar-title>
+
+      <!-- Menú de navegación principal -->
+   
       <v-btn text to="/">Inicio</v-btn>
       <v-btn text to="/products">Productos</v-btn>
 
-      <v-btn icon @click="toggleCartDrawer">
-        <v-icon>mdi-cart</v-icon>
+      <!-- Carrito -->
+      <v-btn @click="toggleCartDrawer">
+        Carrito
+        <v-icon right>mdi-cart</v-icon>
       </v-btn>
 
-      <v-btn color="primary" @click="logout">Cerrar Sesión</v-btn>
+      <!-- Cerrar sesión -->
+      <v-btn text @click="logout">
+        <v-icon left>mdi-logout</v-icon>
+        Cerrar Sesión
+      </v-btn>
     </v-app-bar>
 
     <Sidemenu v-model="menuDrawer" />
@@ -116,16 +145,68 @@ export default {
       v-model="cartDrawer"
       app
       location="right"
-      temporary
-      width="300"
+      width="350"
+      color="blue-grey-lighten-2"
     >
       <v-list>
-        <v-list-item v-for="([producto, cantidad], index) in carrito" :key="index">
-          <v-list-item-title>{{ producto.nombre }}</v-list-item-title>
-          <v-list-item-subtitle>Cantidad: {{ cantidad }}</v-list-item-subtitle>
-          <v-btn color="warning" @click="eliminarDelCarrito(producto.id_producto)">Eliminar</v-btn>
+        <!-- Título del carrito -->
+        <v-list-item>
+          <v-list-item-title class="text-h5 font-weight-bold"
+            >Carrito</v-list-item-title
+          >
+        </v-list-item>
+        <v-divider></v-divider>
+
+        <!-- Productos en el carrito -->
+        <v-list-item
+          v-for="([producto, cantidad], index) in carrito"
+          :key="index"
+          class="py-4"
+        >
+          <v-img
+            :src="'../assets/product.png'"
+            max-height="80"
+            max-width="80"
+            class="mr-4 rounded"
+          ></v-img>
+
+          <v-list-item-content>
+            <v-list-item-title class="text-h6 font-weight-bold">
+              {{ producto.nombre }}
+            </v-list-item-title>
+            <v-list-item-subtitle class="text-caption grey--text">
+              ${{ producto.precio }} x {{ cantidad }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+
+          <v-btn
+            color="amber-darken-4"
+            @click="eliminarDelCarrito(producto.id_producto)"
+          >
+            Eliminar
+          </v-btn>
         </v-list-item>
       </v-list>
+
+      <!-- Subtotal y botón "Ir a pagar" -->
+      <v-divider v-if="carrito.length"></v-divider>
+      <v-container v-if="carrito.length" class="pt-4">
+        <v-row justify="space-between">
+          <v-col>
+            <span class="text-h6 font-weight-bold">Subtotal:</span>
+          </v-col>
+          <v-col class="text-right">
+            <span class="text-h6 font-weight-bold"
+              >${{ calcularSubtotal() }}</span
+            >
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-btn color="success" block class="mt-4" @click="irAPagar">
+            Ir a pagar
+          </v-btn>
+        </v-row>
+      </v-container>
     </v-navigation-drawer>
 
     <v-content>
