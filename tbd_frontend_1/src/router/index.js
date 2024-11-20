@@ -7,6 +7,7 @@ import ProductsView from '@/views/ProductsView.vue'
 import ClientView from '@/views/ClientView.vue'
 import EditProductView from '@/views/EditProductView.vue'
 import DetailsProductView from '@/views/DetailsProductView.vue'
+import PaymentView from '@/views/PaymentView.vue'
 
 const routes = [
   {
@@ -55,7 +56,13 @@ const routes = [
     component: DetailsProductView,
     props: true,
     meta: { requiresAuth: true } 
-  }
+  },
+  {
+    path: '/payment',
+    name: 'PaymentView',
+    component: PaymentView,
+    meta: { requiresAuth: true } 
+  },
 
 ]
 

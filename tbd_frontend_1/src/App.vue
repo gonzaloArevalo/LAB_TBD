@@ -7,17 +7,22 @@ export default {
   components: {
     Sidemenu,
   },
+
   data() {
     return {
       menuDrawer: false,
       cartDrawer: false,
       mostrarNavbar: true,
+      mostrarCarrito: true,
       carrito: [], // Arreglo de arreglos [[producto, cantidad], ...]
     };
   },
+
   watch: {
     $route(to) {
       this.mostrarNavbar = !["Login", "Register"].includes(to.name);
+      // Ocultar el botón del carrito en PaymentView
+      this.mostrarCarrito = to.name !== "PaymentView"; 
       // Cerrar el drawer del carrito al cambiar de vista
       this.cartDrawer = false;
     },
@@ -25,9 +30,10 @@ export default {
 
   mounted() {
     this.mostrarNavbar = !["Login", "Register"].includes(this.$route.name);
-
     // Cargar el carrito desde localStorage al iniciar
     const savedCarrito = JSON.parse(localStorage.getItem("carrito"));
+    // Configurar la visibilidad inicial del botón del carrito
+    this.mostrarCarrito = this.$route.name !== "PaymentView"; 
     if (savedCarrito) {
       this.carrito = savedCarrito;
     }
@@ -37,9 +43,11 @@ export default {
     toggleMenuDrawer() {
       this.menuDrawer = !this.menuDrawer;
     },
+
     toggleCartDrawer() {
       this.cartDrawer = !this.cartDrawer;
     },
+
     logout() {
       localStorage.removeItem("token");
       this.$router.push({ name: "Login" });
@@ -47,11 +55,11 @@ export default {
       this.carrito = [];
       localStorage.removeItem("carrito");
     },
+
     agregarAlCarrito(producto) {
       const index = this.carrito.findIndex(
         ([p]) => p.id_producto === producto.id_producto
       );
-
       if (index !== -1) {
         // Producto ya existe en el carrito
         const [, cantidad] = this.carrito[index];
@@ -66,15 +74,12 @@ export default {
         // Producto no existe en el carrito
         this.carrito.push([producto, 1]);
       }
-
-      console.log(this.carrito);
-
       // Guardar el carrito actualizado en localStorage
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
-
       // Abrir el drawer
       this.cartDrawer = true;
     },
+
     eliminarDelCarrito(productoID) {
       const index = this.carrito.findIndex(
         ([p]) => p.id_producto === productoID
@@ -88,27 +93,35 @@ export default {
           this.carrito.splice(index, 1); // Eliminar producto del carrito
         }
       }
-
       // Guardar el carrito actualizado en localStorage
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
     },
+
+    vaciarCarrito() {
+      // Vacía el carrito y elimina el valor de localStorage
+      this.carrito = [];
+      localStorage.removeItem("carrito");
+    },
+
     calcularSubtotal() {
       return this.carrito.reduce(
         (total, [producto, cantidad]) => total + producto.precio * cantidad,
         0
       );
     },
-    irAPagar() {
-      // this.$router.push({ name: "Checkout" }); // Redirigir a la vista de pago
-    },
+
   },
+
   provide() {
     return {
       agregarAlCarrito: this.agregarAlCarrito,
       eliminarDelCarrito: this.eliminarDelCarrito,
       logout: this.logout,
+      calcularSubtotal: this.calcularSubtotal,
+      vaciarCarrito: this.vaciarCarrito,
     };
   },
+
 };
 </script>
 
@@ -127,7 +140,7 @@ export default {
       <v-btn text to="/products">Productos</v-btn>
 
       <!-- Carrito -->
-      <v-btn @click="toggleCartDrawer">
+      <v-btn v-if="mostrarCarrito" @click="toggleCartDrawer">
         Carrito
         <v-icon right>mdi-cart</v-icon>
       </v-btn>
@@ -140,6 +153,10 @@ export default {
     </v-app-bar>
 
     <Sidemenu v-model="menuDrawer" />
+
+    <!-- ############################################  -->
+    <!--                   CARRITO                     -->
+    <!-- ############################################  -->
 
     <v-navigation-drawer
       v-model="cartDrawer"
@@ -164,7 +181,7 @@ export default {
           class="py-4"
         >
           <v-img
-            :src="'../assets/product.png'"
+            src="./assets/product.png"
             max-height="80"
             max-width="80"
             class="mr-4 rounded"
@@ -202,7 +219,7 @@ export default {
           </v-col>
         </v-row>
         <v-row>
-          <v-btn color="success" block class="mt-4" @click="irAPagar">
+          <v-btn color="success" block class="mt-4" :to="{name: 'PaymentView'}">
             Ir a pagar
           </v-btn>
         </v-row>
