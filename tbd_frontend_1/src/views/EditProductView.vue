@@ -48,7 +48,14 @@
     data() {
       return {
         //producto: {},
-        producto: null,
+        producto: {
+          id_producto: null,
+          nombre: "",
+          descripcion: "",
+          precio: null,
+          stock: null,
+          estado: "",
+        },
         valid: false,
       };
     },
@@ -59,6 +66,7 @@
       if (id) {
         try {
           const response = await productoService.getById(id);
+          console.log("Producto obtenido:", response.data);
           this.producto = response.data;
         } catch (error) {
           console.error("Error al obtener el producto:", error);
@@ -73,7 +81,11 @@
         try {
           const response = await productoService.update(this.producto.id_producto, this.producto);
           console.log("Producto actualizado:", response.data);
-          this.$router.push({ path: "/detailsproduct", query: { id: this.producto.id_producto } });
+
+          const updatedProduct = await productoService.getById(this.producto.id_producto);
+          this.producto = updatedProduct.data;
+
+          this.$router.push({ path: `/detailsproduct/${this.producto.id_producto}` });
         } catch (error) {
           console.error("Error al actualizar el producto:", error);
         }

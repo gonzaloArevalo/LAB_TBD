@@ -66,6 +66,12 @@
         }
       }
     },
+
+    formatDescripcion(descripcion) {
+      if (!descripcion) return [];
+      // Divide la descripción en líneas separadas por \n
+      return descripcion.split('\n');
+    },
     // async created() {
     //   const id = this.$route.query.id;
   
