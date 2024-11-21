@@ -12,36 +12,34 @@
 
 El objetivo es diseñar y desarrollar un sistema de base de datos relacional para un E-commerce, donde se gestionen productos, órdenes de compra, clientes y el inventario en tiempo real. Garantizando que cuando un cliente realice una compra, el stock de productos se actualice automáticamente, y si el stock de un producto llega a 0, este se marque como “agotado”.
 
-# Herramientas de desarrollo
-
 # Recursos utilizados para el desarrollo del proyecto:
 
    ## Base de datos
-      * Postgres SQL versión 16
-      * PgAdmin versión 4
+   * Postgres SQL versión 16
+   * PgAdmin versión 4
 
    ## Backend
-      * IntelliJ IDEA Ultimate
-      * JDK versión 17
-      * Postman
+   * IntelliJ IDEA Ultimate
+   * JDK versión 17
+   * Postman
 
    ## Frontend
-      * VUE versión 3
-      * Node.js versión >=16
-      * Visual Studio Code (VSC)
+   * VUE versión 3
+   * Node.js versión >=16
+   * Visual Studio Code (VSC)
 
 # Guía de Instalación y Ejecución
-Esta guía ayudará a configurar el entorno de desarrollo para trabajar con IntelliJ IDEA, PostgreSQL, pgAdmin, y ejecutar un proyecto de Vue.js en la carpeta de Frontend.
+Esta guía ayudará a configurar el entorno de desarrollo para trabajar con IntelliJ IDEA, PostgreSQL, pgAdmin, y ejecutar un proyecto de Vue.js
 
 ## 1. Clonar el repositorio
 
 git clone https://github.com/gonzaloArevalo/LAB_TBD
 
-## instalación de Node.js
+## 2. instalación de Node.js
 
 1. Descargar Node.js desde el sitio web oficial: [Descargar Node.js](https://nodejs.org/es/download/).
 
-## 2. Instalación de IntelliJ IDEA
+## 3. Instalación de IntelliJ IDEA
 
 1. Descargar IntelliJ IDEA desde el sitio web oficial: [Descargar IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
 
@@ -92,10 +90,10 @@ git clone https://github.com/gonzaloArevalo/LAB_TBD
 1. Abrir una terminal en la carpeta donde se encuentran los archivo SQL que se desea ejecutar. En este caso abrir consola en carpeta "database".
 
 2. Ejecutar los siguientes comandos en orden:
-   * psql -U postgres -f dbCreate.sql
-   * psql -U postgres -f loadData.sql
-   * psql -U postgres -f triggerCreate.sql
-   * psql -U postgres -f testTrigger.sql (para revisar funcionamiento de triggers)
+      * psql -U postgres -f dbCreate.sql
+      * psql -U postgres -f loadData.sql
+      * psql -U postgres -f triggerCreate.sql
+      * psql -U postgres -f testTrigger.sql (para revisar funcionamiento de triggers)
 
 Importante: se usa usuario "postgres" para conectarse a la base de datos. Si se utiliza un usuario diferente, reemplazar "postgres" por el nombre del usuario correspondiente.
 
