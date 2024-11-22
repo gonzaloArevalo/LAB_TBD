@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,8 +30,6 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable) // Deshabilita CSRF por ser una API
             .cors((cors) -> {}) // Habilita CORS
             .authorizeHttpRequests(authorize -> authorize // Configura las rutas que requieren autenticación
-//                .requestMatchers("/establecimientos/").hasAnyRole("MOD") // Solo los ADMIN pueden acceder a /establecimientos/**
-//                .requestMatchers("/establecimientos/**").hasAnyRole("ADMIN") // Solo los ADMIN pueden acceder a /establecimientos/**
                 .requestMatchers("/auth/**").permitAll() // Todos pueden acceder a /auth/**
                 .requestMatchers("/api/**").permitAll() // Todos pueden acceder a /api/**
                 .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
@@ -50,4 +50,13 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     } // Configura el encriptador de contraseñas
+
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Obtén el principal (nombre de usuario) desde el objeto de autenticación
+            return authentication.getName();
+        }
+        return null;
+    }
 }

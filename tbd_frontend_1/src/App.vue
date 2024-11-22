@@ -1,6 +1,7 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import Sidemenu from "./components/Sidemenu.vue";
+import productoService from "@/services/producto.service";
 
 export default {
   name: "App",
@@ -45,6 +46,8 @@ export default {
     },
 
     toggleCartDrawer() {
+      //Actualiza el carro al abrirlo
+      this.actualizarCarrito();
       this.cartDrawer = !this.cartDrawer;
     },
 
@@ -95,6 +98,20 @@ export default {
       }
       // Guardar el carrito actualizado en localStorage
       localStorage.setItem("carrito", JSON.stringify(this.carrito));
+    },
+
+    async actualizarCarrito() {
+      try {
+        // Obtener productos actualizados desde la API
+        const promises = this.carrito.map(async item => {
+          const response = await productoService.getById(item[0].id_producto);
+          return [response.data, item[1]];
+        });
+        // Asignar el resultado al carrito actualizado
+        this.carrito = await Promise.all(promises);
+      } catch (error) {
+        console.error("Error al actualizar el carrito:", error);
+      }
     },
 
     vaciarCarrito() {

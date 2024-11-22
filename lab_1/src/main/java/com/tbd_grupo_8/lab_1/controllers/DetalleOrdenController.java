@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/detalle_orden")
+@RequestMapping("/api/detalle_orden")
 public class DetalleOrdenController {
     @Autowired
     private DetalleOrdenRepository detalleOrdenRepository;

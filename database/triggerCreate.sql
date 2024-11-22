@@ -26,7 +26,11 @@ CREATE OR REPLACE FUNCTION log_operations()
 RETURNS TRIGGER AS $$
 DECLARE
     data JSONB;
+    usuario_actual VARCHAR(255);
 BEGIN
+
+    SELECT current_setting('myapp.current_user', true) INTO usuario_actual;
+
     IF TG_OP = 'INSERT' THEN
         data := row_to_json(NEW);
     ELSIF TG_OP = 'UPDATE' THEN
@@ -36,7 +40,7 @@ BEGIN
     END IF;
 
     INSERT INTO audit_log(tabla, operacion, datos, usuario)
-    VALUES (TG_TABLE_NAME, TG_OP, data, current_user);
+    VALUES (TG_TABLE_NAME, TG_OP, data, usuario_actual);
 
     RETURN NULL;
 END;
@@ -48,7 +52,7 @@ FOR EACH ROW EXECUTE FUNCTION log_operations();
 
 -- Se crea el trigger especifico para guardar en la tabla de auditoría cuando se cambia el precio de un producto
 CREATE OR REPLACE TRIGGER trigger_actualizar_precio_producto
-    BEFORE UPDATE OF precio
+    AFTER UPDATE OF precio
     ON PRODUCTO
     FOR EACH ROW
     EXECUTE FUNCTION log_operations();

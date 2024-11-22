@@ -82,8 +82,7 @@
           const response = await productoService.update(this.producto.id_producto, this.producto);
           console.log("Producto actualizado:", response.data);
 
-          const updatedProduct = await productoService.getById(this.producto.id_producto);
-          this.producto = updatedProduct.data;
+          this.producto = response.data;
 
           this.$router.push({ path: `/detailsproduct/${this.producto.id_producto}` });
         } catch (error) {

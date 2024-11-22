@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS DETALLE_ORDEN
 
 -- Se crea una tabla para llevar registro de las llamadas de insercion, actualizacion o eliminacion realizadas en el backend
 
-CREATE TABLE audit_log (
+CREATE TABLE IF NOT EXISTS audit_log
+(
     id_log serial PRIMARY KEY,
     tabla VARCHAR(50),
     operacion VARCHAR(10),
