@@ -7,7 +7,9 @@
           <v-card-subtitle>Precio: ${{ producto.precio }}</v-card-subtitle>
           <v-card-text>
             <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-            <p><strong>Stock:</strong> {{ producto.stock }}</p>
+            <p v-if="producto.estado === 'Disponible'">
+              <strong>Stock:</strong> {{ producto.stock }}
+            </p>
             <p><strong>Estado:</strong> {{ producto.estado }}</p>
           </v-card-text>
           <v-card-actions>

@@ -14,3 +14,6 @@ SELECT id_producto, nombre, stock, estado FROM PRODUCTO WHERE id_producto = 1;
 UPDATE PRODUCTO SET precio = 5000 WHERE id_producto = 1;
 --Se llama el procedimiento almacenado
 CALL reporte_audit();
+
+--Debido al trigger que ve por cambios en el precio, esa última query se realizará dos veces, mostrando que el trigger
+--para los queries de manera general se aplica igualmente junto con el otro trigger específico
