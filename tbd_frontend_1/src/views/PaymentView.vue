@@ -31,7 +31,7 @@
           <!-- Total -->
           <div class="d-flex justify-end align-center">
             <span class="text-h6 mr-4">Total:</span>
-            <span class="text-h5 font-weight-bold">${{ total }}</span>
+            <span class="text-h5 font-weight-bold">${{ orden.total }}</span>
           </div>
 
           <!-- Botón de pagar -->
