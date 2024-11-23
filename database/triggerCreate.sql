@@ -1,3 +1,6 @@
+-- Conexion a la base de datos
+\c tbd_lab_1
+
 -- Primero creamos la función que ejecutará el trigger
 CREATE OR REPLACE FUNCTION actualizar_estado_producto()
 RETURNS TRIGGER AS $$

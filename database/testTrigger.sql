@@ -1,3 +1,5 @@
+\c tbd_lab_1
+
 -- Actualizar el stock a 0
 UPDATE PRODUCTO SET stock = 0 WHERE id_producto = 1;
 

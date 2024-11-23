@@ -1,5 +1,8 @@
 \encoding UTF8
 
+-- Creación de la base de datos
+\c tbd_lab_1
+
 insert into CATEGORIA (id_categoria, nombre)
 values (1, 'Tecnología'),
        (2, 'Electrodomésticos'),
