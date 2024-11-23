@@ -61,7 +61,21 @@ git clone https://github.com/gonzaloArevalo/LAB_TBD
 
 ## 4. Crear base de datos y cargar información
 
-### 4.1 Mediante pgAdmin
+
+
+### 4.1 Mediante línea de comandos
+
+1. Abrir una terminal en la carpeta donde se encuentran los archivo SQL que se desea ejecutar. En este caso abrir consola en carpeta "database".
+
+2. Ejecutar los siguientes comandos en orden:
+      * psql -U postgres -f dbCreate.sql
+      * psql -U postgres -d tbd_lab_1 -f loadData.sql
+      * psql -U postgres -f triggerCreate.sql
+      * psql -U postgres -f testTrigger.sql (para revisar funcionamiento de triggers)
+
+Importante: se usa usuario "postgres" para conectarse a la base de datos. Si se utiliza un usuario diferente, reemplazar "postgres" por el nombre del usuario correspondiente.
+
+### 4.2 Mediante pgAdmin
 
 1. Asegurarse de estar conectado a PostgreSQL con pgAdmin:
    Abrir pgAdmin y conectarse al servidor PostgreSQL.
@@ -78,24 +92,18 @@ git clone https://github.com/gonzaloArevalo/LAB_TBD
 
 5. Una vez abierto el archivo SQL, se puede ejecutarlo haciendo clic en el botón "Execute".
 
+NOTA IMPORTANTE:
+	1. Los script están diseñado para ejecutarse en la terminal de PostgreSQL (psql).
+	2. Si se va a ejecutar en pgAdmin, eliminar o comentar comandos específicos de psql, como:
+      		- \c <database_name>
+      		- \encoding UTF8
+
 6. Los scripts a ejecutar son los siguientes, en orden de ejecución:
 
    * dbCreate.sq
    * loadData.sql
    * triggerCreate.sql
    * testTrigger.sql (para revisar funcionamiento de triggers)
-
-### 4.2 Mediante línea de comandos
-
-1. Abrir una terminal en la carpeta donde se encuentran los archivo SQL que se desea ejecutar. En este caso abrir consola en carpeta "database".
-
-2. Ejecutar los siguientes comandos en orden:
-      * psql -U postgres -f dbCreate.sql
-      * psql -U postgres -f loadData.sql
-      * psql -U postgres -f triggerCreate.sql
-      * psql -U postgres -f testTrigger.sql (para revisar funcionamiento de triggers)
-
-Importante: se usa usuario "postgres" para conectarse a la base de datos. Si se utiliza un usuario diferente, reemplazar "postgres" por el nombre del usuario correspondiente.
 
 ### 4.3 Verificar la Carga de Datos
 
