@@ -47,7 +47,6 @@
     name: "EditProductView",
     data() {
       return {
-        //producto: {},
         producto: {
           id_producto: null,
           nombre: "",

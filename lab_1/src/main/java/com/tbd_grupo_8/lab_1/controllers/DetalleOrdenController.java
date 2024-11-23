@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/detalle_orden")
@@ -31,10 +33,25 @@ public class DetalleOrdenController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<DetalleOrden> createDetalleOrden(@RequestBody DetalleOrden detalleOrden) {
+    public ResponseEntity<List<DetalleOrden>> createDetalleOrden(@RequestBody Map<String, Object> payload) {
         try {
-            DetalleOrden savedDetalleOrden = detalleOrdenRepository.save(detalleOrden);
-            return new ResponseEntity<>(savedDetalleOrden, HttpStatus.CREATED);
+            long idOrden = Long.parseLong(payload.get("id_orden").toString());
+            // Convertir el carrito recibido en una lista de DetalleOrden
+            List<DetalleOrden> detalles = ((List<Map<String, Object>>) payload.get("carrito")).stream()
+                    .map(item -> {
+                        DetalleOrden detalle = new DetalleOrden();
+                        detalle.setId_orden(idOrden);
+                        detalle.setId_producto(Long.parseLong(item.get("id_producto").toString()));
+                        detalle.setCantidad(Integer.parseInt(item.get("cantidad").toString()));
+                        detalle.setPrecio_unitario(Double.parseDouble(item.get("precio_unitario").toString()));
+                        return detalle;
+                    })
+                    .collect(Collectors.toList());
+
+            // Guardar los detalles en la base de datos
+            List<DetalleOrden> savedDetalles = detalleOrdenRepository.save(detalles);
+
+            return new ResponseEntity<>(savedDetalles, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

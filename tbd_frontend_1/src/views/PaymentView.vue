@@ -50,6 +50,8 @@
 
 <script>
 import { jwtDecode } from "jwt-decode";
+import ordenService from "@/services/orden.service";
+import detalleOrdenService from "@/services/detalleOrden.service";
 
 export default {
   inject: ["calcularSubtotal","vaciarCarrito"],
@@ -58,8 +60,10 @@ export default {
   data() {
     return {
       cart: [], // Carrito de compras cargado desde localStorage
-      total: 0, // Total calculado de la compra
-      userID: "",
+      orden: {
+        id_cliente: null,
+        total: null,
+        },
     };
   },
 
@@ -67,40 +71,57 @@ export default {
     const savedCart = JSON.parse(localStorage.getItem("carrito"));
     if (savedCart) {
       this.cart = savedCart;
-      this.total = this.calcularSubtotal();
+      this.orden.total = this.calcularSubtotal();
     } else {
       this.$router.push({ name: "Home" });
     }
     const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = jwtDecode(token);
-      this.userID = decodedToken.id_cliente; // Almacena el id del cliente logueado
+      this.orden.id_cliente = decodedToken.id_cliente; // Almacena el id del cliente logueado
+      
     }
   },
 
   methods: {
-    pay() {
+    async pay() {
       if (this.cart.length === 0) {
         alert("El carrito está vacío. Agrega productos antes de pagar.");
         return;
-      } else {
-        alert(`¡Pago exitoso! El monto total es $${this.total}`);
-        
-        // Se crea objeto a enviar al backend
-        const obj = {
-          id_cliente: this.userID,
-          cart: this.cart
+      } 
+
+      // Servicio de orden.service para enviar carrito
+
+      try {
+          console.log("Recibe para crear:", this.orden);
+
+          const response = await ordenService.create(this.orden);
+          console.log("Orden creada:", response.data);
+          const ordenCreada = response.data;
+
+
+          // Preparar el carrito para enviar al backend
+          const carrito = this.cart.map(([producto, cantidad]) => ({
+            id_producto: producto.id_producto,
+            cantidad: cantidad,
+            precio_unitario: producto.precio,
+          }));
+
+          const payload = {
+            id_orden: ordenCreada.id_orden,
+            carrito: carrito,
+          };
+          //Se crean detalles
+          const responseDetalles = await detalleOrdenService.create(payload);
+          console.log("Detalles de la orden creados:", responseDetalles.data);
+
+          alert(`¡Pago exitoso! El monto total es $${this.order.total}`);
+          this.vaciarCarrito();
+          // Redirigir a la página principal
+          this.$router.push({ name: "Home" });
+        } catch (error) {
+          console.error("No se pudo realizar la transacción:", error);
         }
-
-        // Servicio de orden.service para enviar carrito
-
-
-
-
-        this.vaciarCarrito();
-        // Redirigir a la página principal
-        this.$router.push({ name: "Home" });
-      }
     },
   },
 };

@@ -16,7 +16,7 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     // Obtener todas las categorías
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<Categoria>> getAllCategorias() {
         List<Categoria> categorias = categoriaService.findAll();
         return new ResponseEntity<>(categorias, HttpStatus.OK);

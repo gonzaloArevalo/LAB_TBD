@@ -21,6 +21,10 @@
               Stock: {{ producto.stock }}
             </v-card-subtitle>
 
+            <v-card-subtitle class="text-center mb-3">
+              Categoría:{{ categorias[producto.id_categoria] || "N/A" }}
+            </v-card-subtitle>
+
             <v-btn class="mb-2" color="primary" outlined :to="{name: 'DetailsProduct', params: {id: producto.id_producto}}">
               Detalles
             </v-btn>
@@ -40,6 +44,7 @@
 <script>
 import { inject } from "vue";
 import productoService from "@/services/producto.service";
+import categoriaService from "@/services/categoria.service";
 
 export default {
   inject: ["agregarAlCarrito"],
@@ -47,11 +52,12 @@ export default {
   data() {
     return {
       productos: [],
+      categorias: {},
     };
   },
   
-  mounted() {
-    productoService
+  async mounted() {
+    await productoService
       .getAll()
       .then((response) => {
         this.productos = response.data;
@@ -59,6 +65,15 @@ export default {
       .catch((error) => {
         console.error("Error al obtener los productos:", error);
       });
+
+      const categoriasArray = await categoriaService.getAll().then((response) => {
+        const categoriasArray = response.data
+        this.categorias = {};
+        for (const categoria of categoriasArray) {
+          this.categorias[categoria.id_categoria] = categoria.nombre;
+        }
+      });
+
   },
 
   methods: {

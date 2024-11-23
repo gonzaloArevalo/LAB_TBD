@@ -1,5 +1,6 @@
 package com.tbd_grupo_8.lab_1.controllers;
 
+import com.tbd_grupo_8.lab_1.dto.OrdenDto;
 import com.tbd_grupo_8.lab_1.entities.Orden;
 import com.tbd_grupo_8.lab_1.services.OrdenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -30,10 +32,16 @@ public class OrdenController {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Orden> createOrden(@RequestBody Orden orden) {
+    @PostMapping("/crear")
+    public ResponseEntity<Orden> createOrden(@RequestBody OrdenDto ordenDto) {
         try {
-            Orden saved = ordenService.save(orden);
+            Orden newOrden = new Orden();
+            newOrden.setFecha_orden(LocalDateTime.now());
+            newOrden.setEstado("Pagada"); // Encriptar la contraseña
+            newOrden.setId_cliente(ordenDto.getId_cliente());
+            newOrden.setTotal(ordenDto.getTotal());
+            Orden saved = ordenService.save(newOrden);
+
             return new ResponseEntity<>(saved, HttpStatus.CREATED);
         }
         catch (Exception e) {

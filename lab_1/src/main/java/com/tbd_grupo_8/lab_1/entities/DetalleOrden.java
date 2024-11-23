@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetalleOrden {
-    private long id_detalle;
-    private long id_orden;
-    private long id_producto;
+    private Long id_detalle;
+    private Long id_orden;
+    private Long id_producto;
     private Integer cantidad;
-    private double precio_unitario;
+    private Double precio_unitario;
 }

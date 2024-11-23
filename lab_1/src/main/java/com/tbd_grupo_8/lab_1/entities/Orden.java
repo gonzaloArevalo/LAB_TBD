@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Orden {
-    private long id_orden;
+    private Long id_orden;
     private LocalDateTime fecha_orden;
     private String estado;
-    private long id_cliente;
-    private double total;
+    private Long id_cliente;
+    private Double total;
 }

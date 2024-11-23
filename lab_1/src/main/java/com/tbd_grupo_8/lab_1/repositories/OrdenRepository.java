@@ -30,16 +30,16 @@ public class OrdenRepository {
     }
 
     public Orden save(Orden orden) {
+        String sql = "INSERT INTO orden (fecha_orden, estado, id_cliente, total) " +
+                "VALUES (:fecha_orden, :estado, :id_cliente, :total) RETURNING id_orden";
         try (Connection conn = sql2o.open()) {
-            String sql = "INSERT INTO orden (fecha_orden, estado, id_cliente, total) " +
-                    "VALUES (:fecha_orden, :estado, :id_cliente, :total)";
-            Long id = (Long) conn.createQuery(sql, true)
+            Long id = (long) conn.createQuery(sql, true)
                     .addParameter("fecha_orden", orden.getFecha_orden())
                     .addParameter("estado", orden.getEstado())
                     .addParameter("id_cliente", orden.getId_cliente())
                     .addParameter("total", orden.getTotal())
                     .executeUpdate()
-                    .getKey();
+                    .getKey(Long.class);
             orden.setId_orden(id);
             return orden;
         }

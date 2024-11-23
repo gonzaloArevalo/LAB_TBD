@@ -40,7 +40,7 @@ public class ProductoRepository {
                     .executeAndFetchFirst(String.class);
 
             String sql = "INSERT INTO producto (nombre, descripcion, precio, stock, estado, id_categoria)" +
-                    " VALUES (:nombre, :descripcion, :precio, :stock, :estado, :id_categoria)";
+                    " VALUES (:nombre, :descripcion, :precio, :stock, :estado, :id_categoria) RETURNING id_producto";
             Long id = (Long) conn.createQuery(sql, true)
                     .addParameter("nombre", producto.getNombre())
                     .addParameter("descripcion", producto.getDescripcion())

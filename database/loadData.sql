@@ -7,13 +7,25 @@ values (1, 'Accesorios'),
        (4, 'Computadores Armados'),
        (5, 'Notebooks');
 
-insert into PRODUCTO (id_producto, nombre, descripcion, precio, stock, estado, id_categoria)
-values (1, 'Mouse Silencioso RGB',
+insert into PRODUCTO (nombre, descripcion, precio, stock, estado, id_categoria)
+values ('Mouse Silencioso RGB',
         'Mouse Silencioso RGB\nMarca: Generic\nModel: SMRGBCD001\nDescripción: Mouse inhalámbrico de botones silenciosos y luces RGB',
         4500, 12, 'Disponible', 2),
-        (2, 'Teclado DELL',
+        ('Teclado DELL',
         'Teclado inhalámbrico DELL\nMarca: DELL\nModel: KM632\nDescripción: Teclado inhalámbrico DELL distribución Latinoamericana con pad numérico',
-        23000, 5, 'Disponible', 2);
+        23000, 5, 'Disponible', 2),
+        ('Notebook Asus Gamer',
+        'Notebook para juegos con gráfica integrada',
+        500000, 3, 'Disponible', 5),
+        ('Pendrive 32 GB',
+        'Este dispositivo posee una gran velocidad para transferir datos',
+        6500, 20, 'Disponible', 1),
+        ('Batería portátil',
+        'Esta batería te permite llevar contigo sin preocupaciones tus dispositivos por un largo periódo de tiempo',
+        500000, 4, 'Disponible', 1),
+        ('Computador Gamer Ryzen 5500',
+        'Computador diseñado para videojuegos de altos requisitos junto con una NVIDIA 3060',
+        720000, 1, 'Disponible', 4);
 
 -- Inserción de datos en la tabla CLIENTE sin caracteres especiales
 INSERT INTO CLIENTE (username, direccion, email, contrasena, telefono, rol) VALUES
