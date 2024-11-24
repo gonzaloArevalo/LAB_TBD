@@ -53,11 +53,44 @@ CREATE OR REPLACE TRIGGER trigger_log_operations
 AFTER INSERT OR UPDATE OR DELETE ON PRODUCTO
 FOR EACH ROW EXECUTE FUNCTION log_operations();
 
+
+CREATE OR REPLACE FUNCTION log_operations_precio()
+RETURNS TRIGGER AS $$
+DECLARE
+    data JSONB;
+    usuario_actual VARCHAR(255);
+BEGIN
+    -- Verificar si el precio realmente cambió
+    IF TG_OP = 'UPDATE' AND OLD.precio = NEW.precio THEN
+        RETURN NULL; -- No registrar nada si el precio no cambió
+    END IF;
+
+    -- Obtener el usuario actual
+    SELECT current_setting('myapp.current_user', true) INTO usuario_actual;
+
+    -- Crear los datos de auditoría
+    IF TG_OP = 'INSERT' THEN
+        data := row_to_json(NEW);
+    ELSIF TG_OP = 'UPDATE' THEN
+        data := jsonb_build_object('antes', row_to_json(OLD), 'despues', row_to_json(NEW));
+    ELSIF TG_OP = 'DELETE' THEN
+        data := row_to_json(OLD);
+    END IF;
+
+    -- Insertar los datos en la tabla de auditoría
+    INSERT INTO audit_log(tabla, operacion, datos, usuario)
+    VALUES (TG_TABLE_NAME, TG_OP, data, usuario_actual);
+
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Se crea el trigger especifico para guardar en la tabla de auditoría cuando se cambia el precio de un producto
 CREATE OR REPLACE TRIGGER trigger_actualizar_precio_producto
     AFTER UPDATE OF precio
     ON PRODUCTO
     FOR EACH ROW
+    WHEN (OLD.precio IS DISTINCT FROM NEW.precio)
     EXECUTE FUNCTION log_operations();
 
 --Procedimiento almacenado que entrega un reporte con los usuarios que más queries realizan
