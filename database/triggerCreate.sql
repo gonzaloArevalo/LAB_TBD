@@ -53,11 +53,19 @@ CREATE OR REPLACE TRIGGER trigger_log_operations
 AFTER INSERT OR UPDATE OR DELETE ON PRODUCTO
 FOR EACH ROW EXECUTE FUNCTION log_operations();
 
+-- -- Se crea el trigger especifico para guardar en la tabla de auditoría cuando se cambia el precio de un producto
+-- CREATE OR REPLACE TRIGGER trigger_actualizar_precio_producto
+--     AFTER UPDATE OF precio
+--     ON PRODUCTO
+--     FOR EACH ROW
+--     EXECUTE FUNCTION log_operations();
+
 -- Se crea el trigger especifico para guardar en la tabla de auditoría cuando se cambia el precio de un producto
 CREATE OR REPLACE TRIGGER trigger_actualizar_precio_producto
     AFTER UPDATE OF precio
     ON PRODUCTO
     FOR EACH ROW
+    WHEN (OLD.precio IS DISTINCT FROM NEW.precio)
     EXECUTE FUNCTION log_operations();
 
 --Procedimiento almacenado que entrega un reporte con los usuarios que más queries realizan
@@ -102,3 +110,4 @@ BEGIN
 
 END;
 $$;
+
