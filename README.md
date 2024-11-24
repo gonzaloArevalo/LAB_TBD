@@ -35,7 +35,7 @@ Esta guía ayudará a configurar el entorno de desarrollo para trabajar con Inte
 
 git clone https://github.com/gonzaloArevalo/LAB_TBD
 
-## 2. instalación de Node.js
+## 2. Instalación de Node.js
 
 1. Descargar Node.js desde el sitio web oficial: [Descargar Node.js](https://nodejs.org/es/download/).
 
@@ -60,8 +60,6 @@ git clone https://github.com/gonzaloArevalo/LAB_TBD
 2. Instalar pgAdmin siguiendo las instrucciones para el sistema operativo.
 
 ## 4. Crear base de datos y cargar información
-
-
 
 ### 4.1 Mediante línea de comandos
 
@@ -125,7 +123,7 @@ Después de ejecutar el script, verificar que los datos se hayan cargado correct
 
 2. Abrir una terminal en VSC y ejecutar los siguientes comandos:
 
-   * ejecutar "npm install" para instalar las dependencias necesarias descritas en el archivo package.json
+   * Ejecutar "npm install" para instalar las dependencias necesarias descritas en el archivo package.json
   
    * Ejecutar "npm run serve" para iniciar el servidor de desarrollo de Vue.js.
 
@@ -139,4 +137,4 @@ Después de ejecutar el script, verificar que los datos se hayan cargado correct
 
 ## 8. Consultas SQL especificas
 
-1.¿Cuál es el promedio de productos diferentes comprados por cliente en las órdenes en las que se gastó más de $500?
+1. ¿Cuál es el promedio de productos diferentes comprados por cliente en las órdenes en las que se gastó más de $500?
