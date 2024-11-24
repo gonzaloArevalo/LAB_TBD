@@ -69,9 +69,10 @@ git clone https://github.com/gonzaloArevalo/LAB_TBD
 
 2. Ejecutar los siguientes comandos en orden:
       * psql -U postgres -f dbCreate.sql
-      * psql -U postgres -d tbd_lab_1 -f loadData.sql
+      * psql -U postgres -f loadData.sql
       * psql -U postgres -f triggerCreate.sql
       * psql -U postgres -f testTrigger.sql (para revisar funcionamiento de triggers)
+      * psql -U postgres -f runStatements.sql
 
 Importante: se usa usuario "postgres" para conectarse a la base de datos. Si se utiliza un usuario diferente, reemplazar "postgres" por el nombre del usuario correspondiente.
 
@@ -100,10 +101,11 @@ NOTA IMPORTANTE:
 
 6. Los scripts a ejecutar son los siguientes, en orden de ejecución:
 
-   * dbCreate.sq
+   * dbCreate.sql
    * loadData.sql
    * triggerCreate.sql
    * testTrigger.sql (para revisar funcionamiento de triggers)
+   * runStatements.sql
 
 ### 4.3 Verificar la Carga de Datos
 
@@ -125,14 +127,14 @@ Después de ejecutar el script, verificar que los datos se hayan cargado correct
 
    * ejecutar "npm install" para instalar las dependencias necesarias descritas en el archivo package.json
   
-   * Ejecutar "npm run dev" para iniciar el servidor de desarrollo de Vue.js.
+   * Ejecutar "npm run serve" para iniciar el servidor de desarrollo de Vue.js.
 
 3. Abrir el navegador web y navegar a la dirección http://localhost:5173/ para ver la aplicación de Vue.js en funcionamiento.
 
 ## 7. Funcionalidades especificas a desarrollar
 
 1. Crear un trigger que marque un producto como "agotado" automáticamente cuando su stock llegue a 0 tras una venta.
-   
+
 2. Crear un trigger para registrar en una tabla de auditoría cada vez que se actualice el precio de un producto.
 
 ## 8. Consultas SQL especificas

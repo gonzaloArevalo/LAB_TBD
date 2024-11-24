@@ -1,3 +1,6 @@
+-- Conexion a la base de datos
+\c tbd_lab_1
+
 --55 ¿Cuál es el promedio de productos diferentes comprados por cliente en las órdenes en las que se gastó más de $500?
 --Por ejemplo si un usuario tiene dos ordenes, una con 1 objeto distinto y otra con 2 objetos distintos, entonces su promedio de objetos distintos es de 1,5
 SELECT 
