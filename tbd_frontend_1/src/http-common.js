@@ -35,9 +35,9 @@ httpClient.interceptors.response.use(
     if (error.response && error.response.status === 403) {
       console.error("Token expirado o inválido. Redirigiendo a login.");
       
-      // Eliminar el token del almacenamiento local
+      // Eliminar el token y carrito del almacenamiento local
       localStorage.removeItem("token");
-      
+      localStorage.removeItem("carrito");
       // Redirigir al login
       window.location.href = "/login";
     }

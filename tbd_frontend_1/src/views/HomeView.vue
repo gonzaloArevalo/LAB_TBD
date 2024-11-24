@@ -32,21 +32,7 @@ export default{
     <v-row justify="center">
       <v-card class="text-center pa-6" elevation="8" max-width="400">
         <v-card-title class="text-h5">Bienvenido</v-card-title>
-        <v-card-subtitle>Elige una opción para continuar</v-card-subtitle>
-
-        <v-divider class="my-4"></v-divider>
-
-        <v-card-text>
-          <!-- Botón de Login -->
-          <v-btn @click="logout" color="primary" class="ma-2" :to="{ name: 'Login' }" block>
-            LOGIN
-          </v-btn>
-
-          <!-- Botón de Register -->
-          <v-btn @click="logout" color="secondary" class="ma-2" :to="{ name: 'Register' }" block>
-            REGISTER
-          </v-btn>
-        </v-card-text>
+        <p>Ve a la pestaña "Productos" para empezar tu compra</p>
 
       </v-card>
 

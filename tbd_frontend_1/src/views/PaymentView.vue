@@ -31,7 +31,7 @@
           <!-- Total -->
           <div class="d-flex justify-end align-center">
             <span class="text-h6 mr-4">Total:</span>
-            <span class="text-h5 font-weight-bold">${{ orden.total }}</span>
+            <span class="text-h5 font-weight-bold">${{ this.orden.total }}</span>
           </div>
 
           <!-- Botón de pagar -->
@@ -115,7 +115,7 @@ export default {
           const responseDetalles = await detalleOrdenService.create(payload);
           console.log("Detalles de la orden creados:", responseDetalles.data);
 
-          alert(`¡Pago exitoso! El monto total es $${this.order.total}`);
+          alert(`¡Pago exitoso! El monto total es $${this.orden.total}`);
           this.vaciarCarrito();
           // Redirigir a la página principal
           this.$router.push({ name: "Home" });

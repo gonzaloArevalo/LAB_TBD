@@ -18,7 +18,12 @@
             </v-card-subtitle>
 
             <v-card-subtitle class="text-center mb-3">
-              Stock: {{ producto.stock }}
+              <p v-if="producto.estado === 'Disponible'">
+              <strong>Stock:</strong> {{ producto.stock }}
+              </p>
+              <p v-else>
+                {{ producto.estado }}
+                </p>
             </v-card-subtitle>
 
             <v-card-subtitle class="text-center mb-3">
@@ -29,7 +34,7 @@
               Detalles
             </v-btn>
 
-            <v-btn class="mb-2" color="primary" @click="agregarAlCarrito(producto)">
+            <v-btn class="mb-2" color="primary" v-if="producto.estado === 'Disponible'" @click="agregarAlCarrito(producto)">
               Agregar al carrito
             </v-btn>
             
@@ -66,7 +71,7 @@ export default {
         console.error("Error al obtener los productos:", error);
       });
 
-      const categoriasArray = await categoriaService.getAll().then((response) => {
+      await categoriaService.getAll().then((response) => {
         const categoriasArray = response.data
         this.categorias = {};
         for (const categoria of categoriasArray) {
