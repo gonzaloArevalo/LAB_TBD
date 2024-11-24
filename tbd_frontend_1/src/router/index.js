@@ -8,6 +8,7 @@ import ClientView from '@/views/ClientView.vue'
 import EditProductView from '@/views/EditProductView.vue'
 import DetailsProductView from '@/views/DetailsProductView.vue'
 import PaymentView from '@/views/PaymentView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 const routes = [
   {
@@ -62,6 +63,11 @@ const routes = [
     name: 'PaymentView',
     component: PaymentView,
     meta: { requiresAuth: true } 
+  },
+  {
+    path: '/:pathMatch(.*)*', // Ruta catch-all
+    name: 'NotFound',
+    component: NotFoundView,
   },
 
 ]

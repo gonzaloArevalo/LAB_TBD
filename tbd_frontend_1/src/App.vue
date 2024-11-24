@@ -21,7 +21,7 @@ export default {
 
   watch: {
     $route(to) {
-      this.mostrarNavbar = !["Login", "Register"].includes(to.name);
+      this.mostrarNavbar = !["Login", "Register","NotFound"].includes(to.name);
       // Ocultar el botón del carrito en PaymentView
       this.mostrarCarrito = to.name !== "PaymentView"; 
       // Cerrar el drawer del carrito al cambiar de vista
@@ -30,7 +30,7 @@ export default {
   },
 
   mounted() {
-    this.mostrarNavbar = !["Login", "Register"].includes(this.$route.name);
+    this.mostrarNavbar = !["Login", "Register","NotFound"].includes(this.$route.name);
     // Cargar el carrito desde localStorage al iniciar
     const savedCarrito = JSON.parse(localStorage.getItem("carrito"));
     // Configurar la visibilidad inicial del botón del carrito
