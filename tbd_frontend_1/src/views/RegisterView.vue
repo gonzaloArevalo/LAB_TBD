@@ -115,27 +115,35 @@ export default {
   methods: {
     handleSubmit() {
 
-      const username = this.usernamex;
-      const password = this.passwordx;
-      const rol = "ADMIN";
-      const direccion = this.direccionx;
-      const telefono = this.telefonox;
-      const email = this.emailx;
+      if (this.usernamex !== '' & this.passwordx !== '' & this.direccionx !== '' & this.telefonox !== '' & this.emailx !== '') {
 
-      const registerDto = {username,email,password,telefono,direccion,rol}
+        const username = this.usernamex;
+        const password = this.passwordx;
+        const rol = "ADMIN";
+        const direccion = this.direccionx;
+        const telefono = this.telefonox;
+        const email = this.emailx;
 
-      // Se intenta register
-      authService
-        .register(registerDto)
-        .then((response) => {
-          console.log("Se registró", response.data);
-          this.errorMessage = ""; // Limpia el mensaje de error si el login es exitoso
-          this.$router.push({ name: 'Login' }); // Redirigir a Home después de un register exitoso
-        })
-        .catch(() => {
-          // Mostrar mensaje de error en pantalla
-          this.errorMessage = "Este usuario ya existe";
-        });
+        const registerDto = {username,email,password,telefono,direccion,rol}
+
+        // Se intenta register
+        authService
+          .register(registerDto)
+          .then((response) => {
+            console.log("Se registró", response.data);
+            this.errorMessage = ""; // Limpia el mensaje de error si el login es exitoso
+            this.$router.push({ name: 'Login' }); // Redirigir a Home después de un register exitoso
+          })
+          .catch(() => {
+            // Mostrar mensaje de error en pantalla
+            this.errorMessage = "Este usuario ya existe";
+          });
+
+      } else {
+        this.errorMessage = "Complete el formulario";
+      }
+
+      
     },
   },
 };

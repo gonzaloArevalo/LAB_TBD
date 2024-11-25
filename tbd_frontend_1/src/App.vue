@@ -102,7 +102,7 @@ export default {
 
     async actualizarCarrito() {
       try {
-        // Obtener productos actualizados desde la API
+        // Obtener productos actualizados 
         const promises = this.carrito.map(async item => {
           const response = await productoService.getById(item[0].id_producto);
           return [response.data, item[1]];

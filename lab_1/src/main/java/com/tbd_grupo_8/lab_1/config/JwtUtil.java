@@ -29,7 +29,7 @@ public class JwtUtil {
                 .withClaim("rol", cliente.getRol())
                 .withIssuer("tbdgrupo8")
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(10)))
                 .sign(ALGORITHM);
     }
 

@@ -32,29 +32,17 @@ public class ProductoRepository {
                     .executeAndFetchFirst(Producto.class);
         }
     }
-    public Producto save(Producto producto) {
-        try (Connection conn = sql2o.beginTransaction()) {
-            String setUserSql = "SELECT set_config('myapp.current_user', :username, false)";
-            conn.createQuery(setUserSql)
-                    .addParameter("username", securityConfig.getCurrentUsername())
-                    .executeAndFetchFirst(String.class);
-
-            String sql = "INSERT INTO producto (nombre, descripcion, precio, stock, estado, id_categoria)" +
-                    " VALUES (:nombre, :descripcion, :precio, :stock, :estado, :id_categoria) RETURNING id_producto";
-            Long id = (Long) conn.createQuery(sql, true)
+    public void save(Producto producto) {
+        String sql = "INSERT INTO \"producto\" (nombre, descripcion, precio, stock, estado, id_categoria) VALUES (:nombre, :descripcion, :precio, :stock, :estado, :id_categoria)";
+        try (org.sql2o.Connection con = sql2o.open()) {
+            con.createQuery(sql)
                     .addParameter("nombre", producto.getNombre())
                     .addParameter("descripcion", producto.getDescripcion())
                     .addParameter("precio", producto.getPrecio())
                     .addParameter("stock", producto.getStock())
                     .addParameter("estado", producto.getEstado())
                     .addParameter("id_categoria", producto.getId_categoria())
-                    .executeUpdate()
-                    .getKey();
-            producto.setId_producto(id);
-            conn.commit();
-
-
-            return producto;
+                    .executeUpdate();
         }
     }
     public Producto update(Producto producto) {

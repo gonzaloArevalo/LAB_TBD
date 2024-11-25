@@ -64,22 +64,27 @@ export default {
   },
   methods: {
     handleSubmit() {
-      const username = this.usernamex;
-      const password = this.passwordx;
-      const loginDto = { username, password };
 
-      // Se intenta login
-      authService
-        .login(loginDto)
-        .then((response) => {
-          console.log("Se logeo", response.data);
-          this.errorMessage = ''; // Limpia el mensaje de error si el login es exitoso
-          this.$router.push({ name: 'Home' }); // Redirigir a Home después de un login exitoso
-        })
-        .catch(() => {
-          // Mostrar mensaje de error en pantalla
-          this.errorMessage = 'Usuario o contraseña incorrectos';
-        });
+      if (this.usernamex !== '' & this.passwordx !== '') {
+        const username = this.usernamex;
+        const password = this.passwordx;
+        const loginDto = { username, password };
+
+        // Se intenta login
+        authService
+          .login(loginDto)
+          .then((response) => {
+            console.log("Se logeo", response.data);
+            this.errorMessage = ''; // Limpia el mensaje de error si el login es exitoso
+            this.$router.push({ name: 'Home' }); // Redirigir a Home después de un login exitoso
+          })
+          .catch(() => {
+            // Mostrar mensaje de error en pantalla
+            this.errorMessage = 'Usuario o contraseña incorrectos';
+          });
+      } else {
+        this.errorMessage = 'Complete el formulario';
+      } 
     }
   },
 };

@@ -33,8 +33,8 @@ public class ProductoController {
     @PostMapping("/")
     public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
         try {
-            Producto newProducto = productoService.save(producto);
-            return new ResponseEntity<>(newProducto, HttpStatus.CREATED);
+            productoService.save(producto);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
